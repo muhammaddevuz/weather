@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:weather/controllers/weather_controller.dart';
 import 'package:weather/models/citys.dart';
 import 'package:weather/models/weather.dart';
+import 'package:weather/views/screens/more_information_screen.dart';
 
 List<String> monthNames = [
   'Yanvar',
@@ -48,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Color.fromARGB(255, 178, 123, 189),
                   ])),
               child: FutureBuilder(
-                  future: weatherController.getCategories("aa"),
+                  future: weatherController.getInformation("tashkent"),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(
@@ -199,7 +200,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   size: 45,
                 )),
             IconButton(
-                onPressed: () {},
+                onPressed: () async{
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return  MoreInformationScreen();
+                  },));
+                },
                 icon: Icon(
                   CupertinoIcons.line_horizontal_3,
                   color: Colors.white,
