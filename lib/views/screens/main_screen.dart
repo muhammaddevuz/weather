@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:weather/models/citys.dart';
 import 'package:weather/services/weather_http_service.dart';
 import 'package:location/location.dart';
 import 'package:weather/views/screens/home_screen.dart';
@@ -95,7 +94,7 @@ class _MainScreenState extends State<MainScreen> {
                 Text(
                   'Weather',
                   style: TextStyle(
-                      color: Color(0xFFFFFFFF),
+                      color: const Color(0xFFFFFFFF),
                       fontWeight: FontWeight.w600,
                       fontSize: 45.h,
                       height: 0),
@@ -103,7 +102,7 @@ class _MainScreenState extends State<MainScreen> {
                 Text(
                   'ForeCast',
                   style: TextStyle(
-                      color: Color(0xFFDDB130),
+                      color: const Color(0xFFDDB130),
                       fontWeight: FontWeight.w600,
                       fontSize: 45.h,
                       height: 0),

@@ -5,11 +5,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:weather/controllers/weather_controller.dart';
 import 'package:weather/models/citys.dart';
 import 'package:weather/models/weather.dart';
-import 'package:weather/views/screens/home_screen.dart';
 
 // ignore: must_be_immutable
 class MoreInformationScreen extends StatefulWidget {
-  MoreInformationScreen({super.key});
+  const MoreInformationScreen({super.key});
 
   @override
   State<MoreInformationScreen> createState() => _MoreInformationScreenState();
@@ -40,7 +39,7 @@ class _MoreInformationScreenState extends State<MoreInformationScreen> {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(
                         child: CircularProgressIndicator(
-                          color: Colors.red,
+                          color: Colors.white,
                         ),
                       );
                     }
@@ -48,7 +47,7 @@ class _MoreInformationScreenState extends State<MoreInformationScreen> {
                     return SingleChildScrollView(
                       child: Column(
                         children: [
-                          SizedBox(height: 60),
+                          const SizedBox(height: 60),
                           Text(selectedCity,
                               style: GoogleFonts.poppins(
                                   fontSize: 25.h,
@@ -95,20 +94,20 @@ class _MoreInformationScreenState extends State<MoreInformationScreen> {
                             child: Container(
                               width: double.infinity,
                               decoration: BoxDecoration(
-                                  boxShadow: [
+                                  boxShadow: const [
                                     BoxShadow(
                                         color: Color.fromARGB(0, 3, 3, 68),
                                         blurRadius: 50)
                                   ],
                                   borderRadius: BorderRadius.circular(25),
-                                  gradient: LinearGradient(
+                                  gradient: const LinearGradient(
                                       begin: Alignment.bottomCenter,
                                       end: Alignment.topCenter,
                                       colors: [
                                         Color.fromARGB(255, 103, 63, 184),
                                         Color.fromARGB(255, 42, 56, 110),
                                       ])),
-                              padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                              padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
                               child: Padding(
                                 padding:
                                     const EdgeInsets.fromLTRB(0, 20, 0, 20),
@@ -121,28 +120,29 @@ class _MoreInformationScreenState extends State<MoreInformationScreen> {
                                         weathers[i].dt_txt.day >
                                                 weathers[i - 1].dt_txt.day
                                             ? daysInformation(weathers[i])
-                                            : SizedBox()
+                                            : const SizedBox()
                                     ],
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                          SizedBox(height: 40),
+                          const SizedBox(height: 40),
                           Padding(
                             padding: const EdgeInsets.all(20.0),
                             child: Container(
                               width: double.infinity,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(25),
-                                  gradient: LinearGradient(
+                                  gradient: const LinearGradient(
                                       begin: Alignment.bottomCenter,
                                       end: Alignment.topCenter,
                                       colors: [
                                         Color(0xff3E2D8F),
                                         Color(0xff8E78C8),
                                       ])),
-                              padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+                              padding:
+                                  const EdgeInsets.fromLTRB(20, 20, 20, 20),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -175,7 +175,7 @@ class _MoreInformationScreenState extends State<MoreInformationScreen> {
                     );
                   }))),
       bottomNavigationBar: Container(
-        color: Color.fromARGB(255, 178, 123, 189),
+        color: const Color.fromARGB(255, 178, 123, 189),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -183,12 +183,12 @@ class _MoreInformationScreenState extends State<MoreInformationScreen> {
                 onPressed: () async {
                   Navigator.pop(context);
                 },
-                icon: Icon(
+                icon: const Icon(
                   CupertinoIcons.line_horizontal_3,
                   color: Colors.white,
                   size: 100,
                 )),
-            SizedBox(
+            const SizedBox(
               width: 20,
             )
           ],
@@ -204,14 +204,14 @@ Widget daysInformation(Weather weather) {
       Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(40),
-            gradient: LinearGradient(
+            gradient: const LinearGradient(
                 begin: Alignment.bottomCenter,
                 end: Alignment.topCenter,
                 colors: [
                   Color(0xff3E2D8F),
                   Color(0xff8E78C8),
                 ])),
-        padding: EdgeInsets.fromLTRB(7, 15, 7, 15),
+        padding: const EdgeInsets.fromLTRB(7, 15, 7, 15),
         height: 150.h,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -240,7 +240,7 @@ Widget daysInformation(Weather weather) {
           ],
         ),
       ),
-      SizedBox(width: 40)
+      const SizedBox(width: 40)
     ],
   );
 }

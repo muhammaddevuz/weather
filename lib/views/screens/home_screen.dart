@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +9,7 @@ import 'package:weather/models/citys.dart';
 import 'package:weather/models/weather.dart';
 import 'package:weather/views/screens/more_information_screen.dart';
 import 'package:location/location.dart';
+import 'package:weather/views/screens/search_screen.dart';
 
 List<String> monthNames = [
   'Yanvar',
@@ -23,8 +26,9 @@ List<String> monthNames = [
   'Dekabr'
 ];
 
+// ignore: must_be_immutable
 class HomeScreen extends StatefulWidget {
-  List latLung;
+  dynamic latLung;
   HomeScreen({super.key, required this.latLung});
 
   @override
@@ -33,7 +37,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   WeatherController weatherController = WeatherController();
-
+  bool checkLocationGif = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(
                         child: CircularProgressIndicator(
-                          color: Colors.red,
+                          color: Colors.white,
                         ),
                       );
                     }
@@ -182,47 +186,64 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            checkLocationGif
+                ? IconButton(
+                    onPressed: () async {
+                      setState(() {
+                        checkLocationGif = false;
+                      });
+                      Location location = Location();
+
+                      bool serviceEnabled;
+                      PermissionStatus permissionGranted;
+                      LocationData _locationData;
+
+                      serviceEnabled = await location.serviceEnabled();
+                      if (!serviceEnabled) {
+                        serviceEnabled = await location.requestService();
+                        if (!serviceEnabled) {
+                          return;
+                        }
+                      }
+
+                      permissionGranted = await location.hasPermission();
+                      if (permissionGranted == PermissionStatus.denied) {
+                        permissionGranted = await location.requestPermission();
+                        if (permissionGranted != PermissionStatus.granted) {
+                          return;
+                        }
+                      }
+
+                      _locationData = await location.getLocation();
+                      if (_locationData.latitude != null) {
+                        if (!mounted) return;
+                        Navigator.pushReplacement(context, MaterialPageRoute(
+                          builder: (context) {
+                            return HomeScreen(latLung: [
+                              _locationData.latitude,
+                              _locationData.longitude
+                            ]);
+                          },
+                        ));
+                      }
+                    },
+                    icon: Icon(
+                      Icons.location_on_outlined,
+                      color: Colors.white,
+                      size: 45,
+                    ))
+                : SizedBox(
+                    width: 40,
+                    child: Image.asset("assets/load.gif"),
+                  ),
             IconButton(
-                onPressed: () async {
-                  Location location = Location();
-
-                  bool serviceEnabled;
-                  PermissionStatus permissionGranted;
-                  LocationData _locationData;
-
-                  serviceEnabled = await location.serviceEnabled();
-                  if (!serviceEnabled) {
-                    serviceEnabled = await location.requestService();
-                    if (!serviceEnabled) {
-                      return;
-                    }
-                  }
-
-                  permissionGranted = await location.hasPermission();
-                  if (permissionGranted == PermissionStatus.denied) {
-                    permissionGranted = await location.requestPermission();
-                    if (permissionGranted != PermissionStatus.granted) {
-                      return;
-                    }
-                  }
-
-                  _locationData = await location.getLocation();
-                  if (_locationData.latitude != null) {
-                    if (!mounted) return;
-                    Navigator.pushReplacement(context, MaterialPageRoute(
-                      builder: (context) {
-                        return HomeScreen(latLung: [_locationData.latitude, _locationData.longitude]);
-                      },
-                    ));
-                  }
+                onPressed: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SearchScreen(),
+                      ));
                 },
-                icon: Icon(
-                  Icons.location_on_outlined,
-                  color: Colors.white,
-                  size: 45,
-                )),
-            IconButton(
-                onPressed: () {},
                 icon: Icon(
                   Icons.search,
                   color: Colors.white,

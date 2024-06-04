@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:weather/views/screens/home_screen.dart';
 import 'package:weather/views/screens/main_screen.dart';
-import 'package:weather/views/screens/more_information_screen.dart';
 
 void main(List<String> args) {
   runApp(const MyApp());
@@ -21,7 +19,7 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           darkTheme: ThemeData.dark(),
-          home: MainScreen(),
+          home: const MainScreen(),
         ));
   }
 }
