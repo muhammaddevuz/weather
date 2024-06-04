@@ -34,7 +34,7 @@ class _MoreInformationScreenState extends State<MoreInformationScreen> {
                     Color.fromARGB(255, 178, 123, 189),
                   ])),
               child: FutureBuilder(
-                  future: weatherController.getInformation("tashkent"),
+                  future: weatherController.getInformation(selectedCity),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(
