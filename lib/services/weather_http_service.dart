@@ -5,9 +5,12 @@ import 'package:weather/models/citys.dart';
 import 'package:weather/models/weather.dart';
 
 class WeatherServices {
-  Future<dynamic> getInfotmation(String city) async {
-    Uri url = Uri.parse(
-        "https://api.openweathermap.org/data/2.5/forecast?q=$city&appid=353124e7e27814f76fb4c773a6a9ac82");
+  Future<dynamic> getInfotmation(dynamic box) async {
+    Uri url = box is String
+        ? Uri.parse(
+            "https://api.openweathermap.org/data/2.5/forecast?q=$box&appid=353124e7e27814f76fb4c773a6a9ac82")
+        : Uri.parse(
+            "https://api.openweathermap.org/data/2.5/forecast?lat=${box[0]}&lon=${box[1]}&limit={limit}&appid=353124e7e27814f76fb4c773a6a9ac82");
     List<Weather> loadedWeather = [];
     try {
       final response = await http.get(url);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:weather/models/citys.dart';
 import 'package:weather/services/weather_http_service.dart';
 import 'package:location/location.dart';
 import 'package:weather/views/screens/home_screen.dart';
@@ -57,12 +58,11 @@ class _MainScreenState extends State<MainScreen> {
       if (!mounted) return;
       Navigator.pushReplacement(context, MaterialPageRoute(
         builder: (context) {
-          return HomeScreen();
+          return HomeScreen(
+              latLung: [_locationData.latitude, _locationData.longitude]);
         },
       ));
     }
-
-    print("LONGITUDE:${_locationData.longitude} AND ${_locationData.latitude}");
   }
 
   @override

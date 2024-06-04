@@ -6,6 +6,7 @@ import 'package:weather/controllers/weather_controller.dart';
 import 'package:weather/models/citys.dart';
 import 'package:weather/models/weather.dart';
 import 'package:weather/views/screens/more_information_screen.dart';
+import 'package:location/location.dart';
 
 List<String> monthNames = [
   'Yanvar',
@@ -23,7 +24,8 @@ List<String> monthNames = [
 ];
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  List latLung;
+  HomeScreen({super.key, required this.latLung});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -50,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Color.fromARGB(255, 178, 123, 189),
                   ])),
               child: FutureBuilder(
-                  future: weatherController.getInformation("tashkent"),
+                  future: weatherController.getInformation(widget.latLung),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(
@@ -67,13 +69,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           Text(
                             selectedCity,
                             style: GoogleFonts.poppins(
-                                fontSize: 20.sp,
+                                fontSize: 20.h,
                                 fontWeight: FontWeight.w600,
                                 color: Colors.white),
                           ),
                           SizedBox(height: 20),
                           SizedBox(
-                            width: 150.w,
+                            width: 140.w,
                             child: Image.asset(
                               "assets/${weathers[0].weather[0]['icon']}.png",
                               fit: BoxFit.cover,
@@ -82,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           SizedBox(height: 20.h),
                           Text("${(weathers[0].main['temp'] - 272) ~/ 1}°",
                               style: GoogleFonts.poppins(
-                                fontSize: 58.sp,
+                                fontSize: 55.h,
                                 color: Colors.white,
                                 height: -0,
                                 fontWeight: FontWeight.w600,
@@ -90,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           SizedBox(height: 15.h),
                           Text("${weathers[0].weather[0]['main']}",
                               style: GoogleFonts.poppins(
-                                  fontSize: 40.sp,
+                                  fontSize: 35.h,
                                   color: Colors.white,
                                   fontWeight: FontWeight.w500)),
                           Row(
@@ -99,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               Text(
                                   "Max: ${(weathers[0].main['temp_max'] - 272) ~/ 1}°",
                                   style: GoogleFonts.poppins(
-                                      fontSize: 30.sp,
+                                      fontSize: 27.h,
                                       color: Colors.white,
                                       fontWeight: FontWeight.w500)),
                               SizedBox(
@@ -108,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               Text(
                                   "Min: ${(weathers[0].main['temp_min'] - 272) ~/ 1}°",
                                   style: GoogleFonts.poppins(
-                                      fontSize: 30.sp,
+                                      fontSize: 27.h,
                                       color: Colors.white,
                                       fontWeight: FontWeight.w500)),
                             ],
@@ -138,13 +140,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                     children: [
                                       Text("Today",
                                           style: GoogleFonts.poppins(
-                                              fontSize: 25.sp,
+                                              fontSize: 23.h,
                                               fontWeight: FontWeight.w600,
                                               color: Colors.white)),
                                       Text(
                                           "${monthNames[weathers[0].dt_txt.month - 1]}, ${weathers[0].dt_txt.day}",
                                           style: GoogleFonts.poppins(
-                                              fontSize: 25.sp,
+                                              fontSize: 23.h,
                                               fontWeight: FontWeight.w600,
                                               color: Colors.white))
                                     ],
@@ -181,7 +183,39 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             IconButton(
-                onPressed: () {},
+                onPressed: () async {
+                  Location location = Location();
+
+                  bool serviceEnabled;
+                  PermissionStatus permissionGranted;
+                  LocationData _locationData;
+
+                  serviceEnabled = await location.serviceEnabled();
+                  if (!serviceEnabled) {
+                    serviceEnabled = await location.requestService();
+                    if (!serviceEnabled) {
+                      return;
+                    }
+                  }
+
+                  permissionGranted = await location.hasPermission();
+                  if (permissionGranted == PermissionStatus.denied) {
+                    permissionGranted = await location.requestPermission();
+                    if (permissionGranted != PermissionStatus.granted) {
+                      return;
+                    }
+                  }
+
+                  _locationData = await location.getLocation();
+                  if (_locationData.latitude != null) {
+                    if (!mounted) return;
+                    Navigator.pushReplacement(context, MaterialPageRoute(
+                      builder: (context) {
+                        return HomeScreen(latLung: [_locationData.latitude, _locationData.longitude]);
+                      },
+                    ));
+                  }
+                },
                 icon: Icon(
                   Icons.location_on_outlined,
                   color: Colors.white,
@@ -218,13 +252,13 @@ Widget hoursInformation(Weather weather) {
   return Row(
     children: [
       SizedBox(
-        height: 120.h,
+        height: 130.h,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text("${(weather.main['temp'] - 272) ~/ 1}℃",
                 style: GoogleFonts.poppins(
-                    fontSize: 27.sp,
+                    fontSize: 25.h,
                     color: Colors.white,
                     height: -0,
                     fontWeight: FontWeight.w500)),
@@ -249,7 +283,7 @@ Widget hoursInformation(Weather weather) {
                       )),
             Text("${weather.dt_txt.hour}.00",
                 style: GoogleFonts.poppins(
-                    fontSize: 25.sp,
+                    fontSize: 23.h,
                     color: Colors.white,
                     height: -0,
                     fontWeight: FontWeight.w500)),

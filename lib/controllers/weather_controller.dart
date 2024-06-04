@@ -4,8 +4,8 @@ import 'package:weather/services/weather_http_service.dart';
 class WeatherController {
   final weatherServices = WeatherServices();
 
-  Future<dynamic> getInformation(String city) async {
-    List<Weather> weather = await weatherServices.getInfotmation(city);
+  Future<dynamic> getInformation(dynamic box) async {
+    List<Weather> weather = await weatherServices.getInfotmation(box);
 
     return weather;
   }
