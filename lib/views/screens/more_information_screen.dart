@@ -94,78 +94,85 @@ class _MoreInformationScreenState extends State<MoreInformationScreen> {
                             ],
                           ),
                         ),
-                        Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Color.fromARGB(0, 3, 3, 68),
-                                    blurRadius: 50)
-                              ],
-                              borderRadius: BorderRadius.circular(25),
-                              gradient: LinearGradient(
-                                  begin: Alignment.bottomCenter,
-                                  end: Alignment.topCenter,
-                                  colors: [
-                                    Color.fromARGB(255, 103, 63, 184),
-                                    Color.fromARGB(255, 42, 56, 110),
-                                  ])),
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Row(
-                                children: [
-                                  daysInformation(weathers[0]),
-                                  for (var i = 1; i < weathers.length; i++)
-                                    weathers[i].dt_txt.day >
-                                            weathers[i - 1].dt_txt.day
-                                        ? daysInformation(weathers[i])
-                                        : SizedBox()
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Color.fromARGB(0, 3, 3, 68),
+                                      blurRadius: 50)
                                 ],
+                                borderRadius: BorderRadius.circular(25),
+                                gradient: LinearGradient(
+                                    begin: Alignment.bottomCenter,
+                                    end: Alignment.topCenter,
+                                    colors: [
+                                      Color.fromARGB(255, 103, 63, 184),
+                                      Color.fromARGB(255, 42, 56, 110),
+                                    ])),
+                            padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  children: [
+                                    daysInformation(weathers[0]),
+                                    for (var i = 1; i < weathers.length; i++)
+                                      weathers[i].dt_txt.day >
+                                              weathers[i - 1].dt_txt.day
+                                          ? daysInformation(weathers[i])
+                                          : SizedBox()
+                                  ],
+                                ),
                               ),
                             ),
                           ),
                         ),
                         SizedBox(height: 40),
-                        Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(40),
-                              gradient: LinearGradient(
-                                  begin: Alignment.bottomCenter,
-                                  end: Alignment.topCenter,
-                                  colors: [
-                                    Color(0xff3E2D8F),
-                                    Color(0xff8E78C8),
-                                  ])),
-                          padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Havo bosimi: ${weathers[0].main['pressure']}mbar",
-                                style: TextStyle(
-                                    fontSize: 25.sp,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              Text(
-                                "Namlik: ${weathers[0].main['humidity']}%",
-                                style: TextStyle(
-                                    fontSize: 25.sp,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              Text(
-                                "Shamol tezligi: ${weathers[0].wind['speed']}m/s",
-                                style: TextStyle(
-                                    fontSize: 25.sp,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ],
+                        Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(25),
+                                gradient: LinearGradient(
+                                    begin: Alignment.bottomCenter,
+                                    end: Alignment.topCenter,
+                                    colors: [
+                                      Color(0xff3E2D8F),
+                                      Color(0xff8E78C8),
+                                    ])),
+                            padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Namlik: ${weathers[0].main['humidity']}%",
+                                  style: TextStyle(
+                                      fontSize: 25.sp,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                Text(
+                                  "Shamol tezligi: ${weathers[0].wind['speed']}m/s",
+                                  style: TextStyle(
+                                      fontSize: 25.sp,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                Text(
+                                  "Havo bosimi: ${weathers[0].main['pressure']}mbar",
+                                  style: TextStyle(
+                                      fontSize: 25.sp,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ],

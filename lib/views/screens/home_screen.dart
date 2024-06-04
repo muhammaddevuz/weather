@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:weather/controllers/weather_controller.dart';
 import 'package:weather/models/citys.dart';
 import 'package:weather/models/weather.dart';
@@ -59,125 +60,119 @@ class _HomeScreenState extends State<HomeScreen> {
                       );
                     }
                     final List<Weather> weathers = snapshot.data;
-                    return Column(
-                      children: [
-                        SizedBox(height: 60),
-                        Text(
-                          selectedCity,
-                          style: TextStyle(
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white),
-                        ),
-                        SizedBox(height: 20),
-                        SizedBox(
-                          width: 150.w,
-                          child: Image.asset(
-                            "assets/${weathers[0].weather[0]['icon']}.png",
-                            fit: BoxFit.cover,
+                    return SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          SizedBox(height: 60),
+                          Text(
+                            selectedCity,
+                            style: GoogleFonts.poppins(
+                                fontSize: 20.sp,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white),
                           ),
-                        ),
-                        SizedBox(height: 20.h),
-                        Text(
-                          "${(weathers[0].main['temp'] - 272) ~/ 1}°",
-                          style: TextStyle(
-                              fontSize: 64.sp,
-                              color: Colors.white,
-                              height: -0,
-                              fontWeight: FontWeight.w600),
-                        ),
-                        SizedBox(height: 15.h),
-                        Text(
-                          "${weathers[0].weather[0]['main']}",
-                          style: TextStyle(
-                              fontSize: 40.sp,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Max: ${(weathers[0].main['temp_max'] - 272) ~/ 1}°",
-                              style: TextStyle(
-                                  fontSize: 30.sp,
+                          SizedBox(height: 20),
+                          SizedBox(
+                            width: 150.w,
+                            child: Image.asset(
+                              "assets/${weathers[0].weather[0]['icon']}.png",
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          SizedBox(height: 20.h),
+                          Text("${(weathers[0].main['temp'] - 272) ~/ 1}°",
+                              style: GoogleFonts.poppins(
+                                fontSize: 58.sp,
+                                color: Colors.white,
+                                height: -0,
+                                fontWeight: FontWeight.w600,
+                              )),
+                          SizedBox(height: 15.h),
+                          Text("${weathers[0].weather[0]['main']}",
+                              style: GoogleFonts.poppins(
+                                  fontSize: 40.sp,
                                   color: Colors.white,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                            SizedBox(
-                              width: 30.w,
-                            ),
-                            Text(
-                              "Min: ${(weathers[0].main['temp_min'] - 272) ~/ 1}°",
-                              style: TextStyle(
-                                  fontSize: 30.sp,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 20),
-                        Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(color: Color(0xff00000040))
-                              ],
-                              borderRadius: BorderRadius.circular(25),
-                              gradient: LinearGradient(
-                                  begin: Alignment.bottomLeft,
-                                  end: Alignment.topRight,
-                                  colors: [
-                                    Color(0xff3E2D8F),
-                                    Color(0xff9D52ACB2),
-                                  ])),
-                          child: Column(
+                                  fontWeight: FontWeight.w500)),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Padding(
-                                padding: EdgeInsets.fromLTRB(40, 15, 40, 15),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "Today",
-                                      style: TextStyle(
-                                          fontSize: 25.sp,
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.white),
-                                    ),
-                                    Text(
-                                      "${monthNames[weathers[0].dt_txt.month - 1]}, ${weathers[0].dt_txt.day}",
-                                      style: TextStyle(
-                                          fontSize: 25.sp,
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.white),
-                                    )
-                                  ],
-                                ),
+                              Text(
+                                  "Max: ${(weathers[0].main['temp_max'] - 272) ~/ 1}°",
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 30.sp,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w500)),
+                              SizedBox(
+                                width: 30.w,
                               ),
-                              Container(
-                                width: double.infinity,
-                                height: 2,
-                                color: Color.fromARGB(255, 183, 167, 223),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(0, 20, 0, 20),
-                                child: SingleChildScrollView(
-                                  scrollDirection: Axis.horizontal,
+                              Text(
+                                  "Min: ${(weathers[0].main['temp_min'] - 272) ~/ 1}°",
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 30.sp,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w500)),
+                            ],
+                          ),
+                          SizedBox(height: 20),
+                          Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(color: Color(0xff00000040))
+                                ],
+                                borderRadius: BorderRadius.circular(25),
+                                gradient: LinearGradient(
+                                    begin: Alignment.bottomLeft,
+                                    end: Alignment.topRight,
+                                    colors: [
+                                      Color(0xff3E2D8F),
+                                      Color(0xff9D52ACB2),
+                                    ])),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(40, 15, 40, 15),
                                   child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      for (var i = 0; i < 9; i++)
-                                        hoursInformation(weathers[i]),
+                                      Text("Today",
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 25.sp,
+                                              fontWeight: FontWeight.w600,
+                                              color: Colors.white)),
+                                      Text(
+                                          "${monthNames[weathers[0].dt_txt.month - 1]}, ${weathers[0].dt_txt.day}",
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 25.sp,
+                                              fontWeight: FontWeight.w600,
+                                              color: Colors.white))
                                     ],
                                   ),
                                 ),
-                              )
-                            ],
-                          ),
-                        )
-                      ],
+                                Container(
+                                  width: double.infinity,
+                                  height: 2,
+                                  color: Color.fromARGB(255, 183, 167, 223),
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(0, 20, 0, 20),
+                                  child: SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    child: Row(
+                                      children: [
+                                        for (var i = 0; i < 9; i++)
+                                          hoursInformation(weathers[i]),
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     );
                   }))),
       bottomNavigationBar: BottomAppBar(
@@ -200,10 +195,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   size: 45,
                 )),
             IconButton(
-                onPressed: () async{
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return  MoreInformationScreen();
-                  },));
+                onPressed: () async {
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
+                      return MoreInformationScreen();
+                    },
+                  ));
                 },
                 icon: Icon(
                   CupertinoIcons.line_horizontal_3,
@@ -225,14 +222,12 @@ Widget hoursInformation(Weather weather) {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              "${(weather.main['temp'] - 272) ~/ 1}℃",
-              style: TextStyle(
-                  fontSize: 27.sp,
-                  color: Colors.white,
-                  height: -0,
-                  fontWeight: FontWeight.w500),
-            ),
+            Text("${(weather.main['temp'] - 272) ~/ 1}℃",
+                style: GoogleFonts.poppins(
+                    fontSize: 27.sp,
+                    color: Colors.white,
+                    height: -0,
+                    fontWeight: FontWeight.w500)),
             SizedBox(
                 width: 50.w,
                 child: weather.dt_txt.hour > 5 && weather.dt_txt.hour < 21
@@ -252,14 +247,12 @@ Widget hoursInformation(Weather weather) {
                                 .substring(9 + 1),
                         fit: BoxFit.cover,
                       )),
-            Text(
-              "${weather.dt_txt.hour}.00",
-              style: TextStyle(
-                  fontSize: 25.sp,
-                  color: Colors.white,
-                  height: -0,
-                  fontWeight: FontWeight.w500),
-            ),
+            Text("${weather.dt_txt.hour}.00",
+                style: GoogleFonts.poppins(
+                    fontSize: 25.sp,
+                    color: Colors.white,
+                    height: -0,
+                    fontWeight: FontWeight.w500)),
           ],
         ),
       ),
