@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather/services/weather_http_service.dart';
 import 'package:location/location.dart';
 import 'package:weather/views/screens/home_screen.dart';
@@ -15,21 +16,17 @@ class _MainScreenState extends State<MainScreen> {
   String curLocation = 'tashkant';
   WeatherServices weatherServices = WeatherServices();
 
-  Future<void> saveChanges() async {}
+   
 
-  Future<void> getChanges() async {}
 
-  Future<void> getas() async {
-    await weatherServices.getInfotmation("ss");
-  }
+  
 
   @override
   void initState() {
     _init();
     super.initState();
   }
-
-  _init() async {
+  _askLocation()async{
     Location location = Location();
 
     bool serviceEnabled;
@@ -63,10 +60,19 @@ class _MainScreenState extends State<MainScreen> {
       ));
     }
   }
+  _init() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? oldLocation= prefs.getString('location');
+    oldLocation==null?_askLocation() :Navigator.pushReplacement(context, MaterialPageRoute(
+        builder: (context) {
+          return HomeScreen(
+              latLung: oldLocation);
+        },
+      ));
+  }
 
   @override
   Widget build(BuildContext context) {
-    getas();
     return Scaffold(
       body: Center(
           child: Container(

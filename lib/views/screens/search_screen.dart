@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:weather/controllers/weather_controller.dart';
-import 'package:weather/models/weather.dart';
 import 'package:weather/views/screens/home_screen.dart';
 
 // ignore: must_be_immutable
@@ -41,7 +39,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     padding: const EdgeInsets.all(20.0),
                     child: TextField(
                       controller: searchController,
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                       decoration: InputDecoration(
                         label: const Text(
                           "Shaxar nomini kiriting",

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather/models/citys.dart';
 import 'package:weather/models/weather.dart';
 
@@ -16,6 +17,7 @@ class WeatherServices {
       final response = await http.get(url);
       final data = jsonDecode(response.body);
       selectedCity = data['city']['name'];
+      saveLocation(selectedCity);
       data['list'].forEach((value) {
         loadedWeather.add(Weather.fromJson(value));
       });
@@ -25,4 +27,9 @@ class WeatherServices {
 
     return loadedWeather;
   }
+}
+
+Future<void> saveLocation(String location) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.setString('location', location);
 }

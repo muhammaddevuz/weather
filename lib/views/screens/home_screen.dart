@@ -69,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     return SingleChildScrollView(
                       child: Column(
                         children: [
-                          SizedBox(height: 60),
+                          const SizedBox(height: 60),
                           Text(
                             selectedCity,
                             style: GoogleFonts.poppins(
@@ -77,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 fontWeight: FontWeight.w600,
                                 color: Colors.white),
                           ),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                           SizedBox(
                             width: 140.w,
                             child: Image.asset(
@@ -119,25 +119,25 @@ class _HomeScreenState extends State<HomeScreen> {
                                       fontWeight: FontWeight.w500)),
                             ],
                           ),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                           Container(
                             width: double.infinity,
                             decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(color: Color(0xff00000040))
+                                boxShadow:const [
+                                   BoxShadow(color: Color(0xff00000040))
                                 ],
                                 borderRadius: BorderRadius.circular(25),
-                                gradient: LinearGradient(
+                                gradient: const LinearGradient(
                                     begin: Alignment.bottomLeft,
                                     end: Alignment.topRight,
                                     colors: [
                                       Color(0xff3E2D8F),
-                                      Color(0xff9D52ACB2),
+                                      Color(0xff9d52acb2),
                                     ])),
                             child: Column(
                               children: [
                                 Padding(
-                                  padding: EdgeInsets.fromLTRB(40, 15, 40, 15),
+                                  padding: const EdgeInsets.fromLTRB(40, 15, 40, 15),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -159,7 +159,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Container(
                                   width: double.infinity,
                                   height: 2,
-                                  color: Color.fromARGB(255, 183, 167, 223),
+                                  color: const Color.fromARGB(255, 183, 167, 223),
                                 ),
                                 Padding(
                                   padding:
@@ -182,7 +182,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     );
                   }))),
       bottomNavigationBar: BottomAppBar(
-        color: Color.fromARGB(255, 178, 123, 189),
+        color: const Color.fromARGB(255, 178, 123, 189),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -227,7 +227,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ));
                       }
                     },
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.location_on_outlined,
                       color: Colors.white,
                       size: 45,
@@ -241,10 +241,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => SearchScreen(),
+                        builder: (context) => const SearchScreen(),
                       ));
                 },
-                icon: Icon(
+                icon: const Icon(
                   Icons.search,
                   color: Colors.white,
                   size: 45,
@@ -253,11 +253,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 onPressed: () async {
                   Navigator.push(context, MaterialPageRoute(
                     builder: (context) {
-                      return MoreInformationScreen();
+                      return const MoreInformationScreen();
                     },
                   ));
                 },
-                icon: Icon(
+                icon: const Icon(
                   CupertinoIcons.line_horizontal_3,
                   color: Colors.white,
                   size: 55,
@@ -311,7 +311,7 @@ Widget hoursInformation(Weather weather) {
           ],
         ),
       ),
-      SizedBox(width: 40)
+      const SizedBox(width: 40)
     ],
   );
 }
