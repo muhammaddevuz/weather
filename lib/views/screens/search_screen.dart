@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather/controllers/weather_controller.dart';
 import 'package:weather/models/citys.dart';
 import 'package:weather/views/screens/home_screen.dart';
@@ -16,6 +17,30 @@ class _SearchScreenState extends State<SearchScreen> {
   TextEditingController searchController = TextEditingController();
   String? searchError;
   bool searchCheck = true;
+  List<String> locationHistory = [];
+  @override
+  void initState() {
+    _init();
+    super.initState();
+  }
+
+  Future<void> saveLocationHistory(List<String> locationHistory) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList('locationHistory', locationHistory);
+  }
+
+  _init() async {
+    List<String>? box;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    box = prefs.getStringList('locationHistory');
+    if (box == null) {
+      locationHistory = [];
+    } else {
+      locationHistory = box;
+    }
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,11 +59,15 @@ class _SearchScreenState extends State<SearchScreen> {
                     Color.fromARGB(255, 178, 123, 189),
                   ])),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 50),
                   Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: TextField(
+                      onSubmitted: (value) async {
+                        enterButton();
+                      },
                       controller: searchController,
                       style: const TextStyle(color: Colors.white),
                       decoration: InputDecoration(
@@ -50,28 +79,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             borderRadius: BorderRadius.circular(25)),
                         suffixIcon: searchCheck
                             ? IconButton(
-                                onPressed: () async {
-                                  setState(() {
-                                    searchCheck = false;
-                                  });
-                                  final box = await weatherController
-                                      .getInformation(searchController.text);
-                                  if (box is String) {
-                                    searchError = box;
-                                    setState(() {
-                                      searchCheck = true;
-                                    });
-                                  } else {
-                                    searchCheck = true;
-                                    Navigator.pushReplacement(
-                                        // ignore: use_build_context_synchronously
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => HomeScreen(
-                                              latLung: searchController.text),
-                                        ));
-                                  }
-                                },
+                                onPressed: enterButton,
                                 icon: const Icon(
                                   Icons.search,
                                   color: Colors.white,
@@ -84,6 +92,74 @@ class _SearchScreenState extends State<SearchScreen> {
                       ),
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        locationHistory.isNotEmpty
+                            ? Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text(
+                                    "Qidiruv tarixi",
+                                    style: TextStyle(
+                                        fontSize: 14, color: Colors.grey),
+                                  ),
+                                  TextButton(
+                                      onPressed: () {
+                                        locationHistory.clear();
+                                        saveLocationHistory(locationHistory);
+                                        setState(() {});
+                                      },
+                                      child: const Text(
+                                        "clear",
+                                        style: TextStyle(color: Colors.grey),
+                                      ))
+                                ],
+                              )
+                            : const SizedBox(),
+                        locationHistory.isNotEmpty
+                            ? Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  for (var i = 0;
+                                      i < locationHistory.length;
+                                      i++)
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        InkWell(
+                                          onTap: () {},
+                                          child: Text(
+                                            locationHistory[i],
+                                            style: const TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.white),
+                                          ),
+                                        ),
+                                        IconButton(
+                                            onPressed: () {
+                                              locationHistory.removeAt(i);
+                                              saveLocationHistory(
+                                                  locationHistory);
+                                              setState(() {});
+                                            },
+                                            icon: const Icon(
+                                              Icons.clear,
+                                              color: Colors.grey,
+                                            ))
+                                      ],
+                                    )
+                                ],
+                              )
+                            : const SizedBox(),
+                      ],
+                    ),
+                  )
                 ],
               ))),
       bottomNavigationBar: Container(
@@ -111,5 +187,29 @@ class _SearchScreenState extends State<SearchScreen> {
         ),
       ),
     );
+  }
+
+  enterButton() async {
+    setState(() {
+      searchCheck = false;
+    });
+    final box =
+        await weatherController.getInformation(searchController.text.trim());
+    if (box is String) {
+      searchError = box;
+      setState(() {
+        searchCheck = true;
+      });
+    } else {
+      locationHistory.insert(0, searchController.text.trim());
+      Navigator.pushReplacement(
+          // ignore: use_build_context_synchronously
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                HomeScreen(latLung: searchController.text.trim()),
+          ));
+      saveLocationHistory(locationHistory);
+    }
   }
 }

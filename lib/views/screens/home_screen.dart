@@ -121,8 +121,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           Container(
                             width: double.infinity,
                             decoration: BoxDecoration(
-                                boxShadow:const [
-                                   BoxShadow(color: Color.fromARGB(0, 1, 1, 60))
+                                boxShadow: const [
+                                  BoxShadow(color: Color.fromARGB(0, 1, 1, 60))
                                 ],
                                 borderRadius: BorderRadius.circular(25),
                                 gradient: const LinearGradient(
@@ -135,7 +135,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: Column(
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(40, 15, 40, 15),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(40, 15, 40, 15),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -157,7 +158,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Container(
                                   width: double.infinity,
                                   height: 2,
-                                  color: const Color.fromARGB(255, 183, 167, 223),
+                                  color:
+                                      const Color.fromARGB(255, 183, 167, 223),
                                 ),
                                 Padding(
                                   padding:
@@ -211,10 +213,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           return;
                         }
                       }
+                      if (!mounted) return;
 
                       _locationData = await location.getLocation();
                       if (_locationData.latitude != null) {
-                        if (!mounted) return;
                         // ignore: use_build_context_synchronously
                         Navigator.pushReplacement(context, MaterialPageRoute(
                           builder: (context) {
@@ -286,15 +288,11 @@ Widget hoursInformation(Weather weather) {
                 width: 50.w,
                 child: weather.dt_txt.hour > 5 && weather.dt_txt.hour < 21
                     ? Image.asset(
-                        "${"assets/${weather.weather[0]['icon']}.png"
-                                .substring(0, 9)}d${"assets/${weather.weather[0]['icon']}.png"
-                                .substring(9 + 1)}",
+                        "${"assets/${weather.weather[0]['icon']}.png".substring(0, 9)}d${"assets/${weather.weather[0]['icon']}.png".substring(9 + 1)}",
                         fit: BoxFit.cover,
                       )
                     : Image.asset(
-                        "${"assets/${weather.weather[0]['icon']}.png"
-                                .substring(0, 9)}n${"assets/${weather.weather[0]['icon']}.png"
-                                .substring(9 + 1)}",
+                        "${"assets/${weather.weather[0]['icon']}.png".substring(0, 9)}n${"assets/${weather.weather[0]['icon']}.png".substring(9 + 1)}",
                         fit: BoxFit.cover,
                       )),
             Text("${weather.dt_txt.hour}.00",
