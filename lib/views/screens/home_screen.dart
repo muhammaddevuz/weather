@@ -122,7 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             width: double.infinity,
                             decoration: BoxDecoration(
                                 boxShadow:const [
-                                   BoxShadow(color: Color(0xff00000040))
+                                   BoxShadow(color: Color.fromARGB(0, 1, 1, 60))
                                 ],
                                 borderRadius: BorderRadius.circular(25),
                                 gradient: const LinearGradient(
@@ -130,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     end: Alignment.topRight,
                                     colors: [
                                       Color(0xff3E2D8F),
-                                      Color(0xff9d52acb2),
+                                      Color.fromARGB(157, 82, 172, 178),
                                     ])),
                             child: Column(
                               children: [
@@ -215,6 +215,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       _locationData = await location.getLocation();
                       if (_locationData.latitude != null) {
                         if (!mounted) return;
+                        // ignore: use_build_context_synchronously
                         Navigator.pushReplacement(context, MaterialPageRoute(
                           builder: (context) {
                             return HomeScreen(latLung: [
@@ -285,19 +286,15 @@ Widget hoursInformation(Weather weather) {
                 width: 50.w,
                 child: weather.dt_txt.hour > 5 && weather.dt_txt.hour < 21
                     ? Image.asset(
-                        "assets/${weather.weather[0]['icon']}.png"
-                                .substring(0, 9) +
-                            "d" +
-                            "assets/${weather.weather[0]['icon']}.png"
-                                .substring(9 + 1),
+                        "${"assets/${weather.weather[0]['icon']}.png"
+                                .substring(0, 9)}d${"assets/${weather.weather[0]['icon']}.png"
+                                .substring(9 + 1)}",
                         fit: BoxFit.cover,
                       )
                     : Image.asset(
-                        "assets/${weather.weather[0]['icon']}.png"
-                                .substring(0, 9) +
-                            "n" +
-                            "assets/${weather.weather[0]['icon']}.png"
-                                .substring(9 + 1),
+                        "${"assets/${weather.weather[0]['icon']}.png"
+                                .substring(0, 9)}n${"assets/${weather.weather[0]['icon']}.png"
+                                .substring(9 + 1)}",
                         fit: BoxFit.cover,
                       )),
             Text("${weather.dt_txt.hour}.00",

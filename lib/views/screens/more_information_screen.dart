@@ -225,10 +225,8 @@ Widget daysInformation(Weather weather) {
             SizedBox(
                 width: 50.w,
                 child: Image.asset(
-                  "assets/${weather.weather[0]['icon']}.png".substring(0, 9) +
-                      "d" +
-                      "assets/${weather.weather[0]['icon']}.png"
-                          .substring(9 + 1),
+                  "${"assets/${weather.weather[0]['icon']}.png".substring(0, 9)}d${"assets/${weather.weather[0]['icon']}.png"
+                          .substring(9 + 1)}",
                   fit: BoxFit.cover,
                 )),
             Text(getWeekDay(weather.dt_txt.weekday),

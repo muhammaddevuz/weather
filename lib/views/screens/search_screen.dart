@@ -64,6 +64,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                   } else {
                                     searchCheck = true;
                                     Navigator.pushReplacement(
+                                        // ignore: use_build_context_synchronously
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) => HomeScreen(

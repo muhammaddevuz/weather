@@ -7,11 +7,13 @@ class Weather {
   Map main;
   List weather;
   Map wind;
+  // ignore: non_constant_identifier_names
   DateTime dt_txt;
   Weather({
     required this.main,
     required this.weather,
     required this.wind,
+    // ignore: non_constant_identifier_names
     required this.dt_txt,
   });
 
