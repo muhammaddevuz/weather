@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather/services/weather_http_service.dart';
-import 'package:location/location.dart';
 import 'package:weather/views/screens/home_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -13,62 +12,38 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  String curLocation = 'tashkant';
   WeatherServices weatherServices = WeatherServices();
-
-   
-
-
-  
 
   @override
   void initState() {
     _init();
     super.initState();
   }
-  _askLocation()async{
-    Location location = Location();
 
-    bool serviceEnabled;
-    PermissionStatus permissionGranted;
-    LocationData _locationData;
-
-    serviceEnabled = await location.serviceEnabled();
-    if (!serviceEnabled) {
-      serviceEnabled = await location.requestService();
-      if (!serviceEnabled) {
-        return;
-      }
-    }
-
-    permissionGranted = await location.hasPermission();
-    if (permissionGranted == PermissionStatus.denied) {
-      permissionGranted = await location.requestPermission();
-      if (permissionGranted != PermissionStatus.granted) {
-        return;
-      }
-    }
-
-    _locationData = await location.getLocation();
-    if (_locationData.latitude != null) {
-      if (!mounted) return;
-      Navigator.pushReplacement(context, MaterialPageRoute(
-        builder: (context) {
-          return HomeScreen(
-              latLung: [_locationData.latitude, _locationData.longitude]);
-        },
-      ));
-    }
-  }
   _init() async {
+    await Future.delayed(Duration(seconds: 2));
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? oldLocation= prefs.getString('location');
-    oldLocation==null?_askLocation() :Navigator.pushReplacement(context, MaterialPageRoute(
-        builder: (context) {
-          return HomeScreen(
-              latLung: oldLocation);
-        },
-      ));
+    String? oldLocation = prefs.getString('location');
+    oldLocation == null
+        ? Navigator.pushReplacement(context, MaterialPageRoute(
+            builder: (context) {
+              return HomeScreen(latLung: "kokand");
+            },
+          ))
+        : Navigator.pushReplacement(context, MaterialPageRoute(
+            builder: (context) {
+              return HomeScreen(latLung: oldLocation);
+            },
+          ));
+  }
+
+  Future<void> showMessageDialog(String message) async {
+    await showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text(message),
+      ),
+    );
   }
 
   @override

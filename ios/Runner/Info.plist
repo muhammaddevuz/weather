@@ -47,3 +47,12 @@
 	<true/>
 </dict>
 </plist>
+<key>NSAppTransportSecurity</key>
+<dict>
+  <key>NSAllowsArbitraryLoads</key>
+  <true/>
+</dict>
+<key>NSLocationWhenInUseUsageDescription</key>
+<string>Ilova foydalanayotganda joylashuv ma'lumotlaridan foydalanadi</string>
+<key>NSLocationAlwaysUsageDescription</key>
+<string>Ilova har doim joylashuv ma'lumotlaridan foydalanadi</string>

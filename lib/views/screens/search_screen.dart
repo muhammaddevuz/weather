@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather/controllers/weather_controller.dart';
+import 'package:weather/models/citys.dart';
 import 'package:weather/views/screens/home_screen.dart';
 
 // ignore: must_be_immutable
@@ -42,7 +43,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       style: const TextStyle(color: Colors.white),
                       decoration: InputDecoration(
                         label: const Text(
-                          "Shaxar nomini kiriting",
+                          "Shaxar nomini ingliz tilida kiriting",
                           style: TextStyle(color: Colors.white),
                         ),
                         border: OutlineInputBorder(
@@ -75,15 +76,39 @@ class _SearchScreenState extends State<SearchScreen> {
                                   color: Colors.white,
                                 ))
                             : SizedBox(
-                              width: 10,
-                              child: Image.asset("assets/load.gif"),
-                            ),
+                                width: 10,
+                                child: Image.asset("assets/load.gif"),
+                              ),
                         errorText: searchError,
                       ),
                     ),
                   ),
                 ],
               ))),
+      bottomNavigationBar: Container(
+        color: const Color.fromARGB(255, 178, 123, 189),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            IconButton(
+                onPressed: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => HomeScreen(latLung: selectedCity),
+                      ));
+                },
+                icon: const Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                  size: 80,
+                )),
+            const SizedBox(
+              width: 20,
+            )
+          ],
+        ),
+      ),
     );
   }
 }
