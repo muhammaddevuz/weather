@@ -24,45 +24,22 @@ List<String> monthNames = [
   'Dekabr'
 ];
 
-Map<String, String> weatherDescriptionMap = {
-  "clear sky": "Ochiq osmon",
-  "few clouds": "Biroz bulutli",
-  "scattered clouds": "Parchalangan bulutli",
-  "overcast clouds": "bulutli",
-  "broken clouds": "Parchalangan bulutlar",
-  "shower rain": "Kuchli yomg'ir",
-  "rain": "Yomg'ir",
-  "thunderstorm": "Momaqaldiroq",
-  "snow": "Qor",
-  "mist": "Tuman",
-  "smoke": "Tutun",
-  "haze": "Tutash",
-  "sand/ dust whirls": "Qum chang girdobi",
-  "fog": "Tuman",
-  "sand": "Qum",
-  "dust": "Chang",
-  "volcanic ash": "Vulqon kuli",
-  "squalls": "Kuchli shamol",
-  "tornado": "Tornado",
-  "light rain": "Yengil yomg'ir",
-  "moderate rain": "Mo'tadil yomg'ir",
-  "heavy intensity rain": "Kuchli yomg'ir",
-  "very heavy rain": "Juda kuchli yomg'ir",
-  "extreme rain": "O'ta kuchli yomg'ir",
-  "freezing rain": "Muzlayotgan yomg'ir",
-  "light intensity shower rain": "Yengil kuchli yomg'ir",
-  "heavy intensity shower rain": "Kuchli kuchli yomg'ir",
-  "ragged shower rain": "Notekis kuchli yomg'ir",
-  "light snow": "Yengil qor",
-  "heavy snow": "Kuchli qor",
-  "sleet": "Muzli yomg'ir",
-  "light shower sleet": "Yengil muzli yomg'ir",
-  "shower sleet": "Kuchli muzli yomg'ir",
-  "light rain and snow": "Yengil yomg'ir va qor",
-  "rain and snow": "Yomg'ir va qor",
-  "light shower snow": "Yengil kuchli qor",
-  "shower snow": "Kuchli kuchli qor",
-  "heavy shower snow": "Kuchli kuchli qor"
+Map<String, String> weatherMainMap = {
+  "Clear": "Ochiq osmon",
+  "Clouds": "Bulutli",
+  "Rain": "Yomg'ir",
+  "Drizzle": "Mayda yomg'ir",
+  "Thunderstorm": "Momaqaldiroq",
+  "Snow": "Qor",
+  "Mist": "Tuman",
+  "Smoke": "Tutun",
+  "Haze": "Tutash",
+  "Dust": "Chang",
+  "Fog": "Tuman",
+  "Sand": "Qum",
+  "Ash": "Kulf",
+  "Squall": "Kuchli shamol",
+  "Tornado": "Tornado"
 };
 
 // ignore: must_be_immutable
@@ -80,15 +57,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: const Color(0xFF1D2547),
-        title: Text(
-          selectedCity,
-          style: GoogleFonts.poppins(
-              fontSize: 20.h, fontWeight: FontWeight.w600, color: Colors.white),
-        ),
-      ),
       body: Center(
           child: Container(
               width: double.infinity,
@@ -117,6 +85,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     return SingleChildScrollView(
                       child: Column(
                         children: [
+                          const SizedBox(height: 50),
+                          Text(
+                            selectedCity,
+                            style: GoogleFonts.poppins(
+                                fontSize: 20.h,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white),
+                          ),
                           const SizedBox(height: 20),
                           SizedBox(
                             width: 140.w,
@@ -135,7 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               )),
                           SizedBox(height: 15.h),
                           Text(
-                              "${weatherDescriptionMap[weathers[0].weather[0]['description']]}",
+                              "${weatherMainMap[weathers[0].weather[0]['main']]}",
                               style: GoogleFonts.poppins(
                                   fontSize: 30.h,
                                   color: Colors.white,
