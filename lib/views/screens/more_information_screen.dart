@@ -212,7 +212,6 @@ Widget daysInformation(Weather weather) {
                   Color(0xff8E78C8),
                 ])),
         padding: const EdgeInsets.fromLTRB(7, 15, 7, 15),
-        height: 150.h,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -222,12 +221,14 @@ Widget daysInformation(Weather weather) {
                     color: Colors.white,
                     height: -0,
                     fontWeight: FontWeight.w500)),
+            const SizedBox(height: 10),
             SizedBox(
                 width: 50.w,
                 child: Image.asset(
                   "${"assets/${weather.weather[0]['icon']}.png".substring(0, 9)}d${"assets/${weather.weather[0]['icon']}.png".substring(9 + 1)}",
                   fit: BoxFit.cover,
                 )),
+            const SizedBox(height: 10),
             Text(getWeekDay(weather.dt_txt.weekday),
                 style: GoogleFonts.poppins(
                     fontSize: 20.sp,

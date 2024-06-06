@@ -324,7 +324,7 @@ Widget hoursInformation(Weather weather) {
                     color: Colors.white,
                     height: -0,
                     fontWeight: FontWeight.w500)),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             SizedBox(
                 width: 50.w,
                 child: weather.dt_txt.hour > 5 && weather.dt_txt.hour < 21
@@ -336,7 +336,7 @@ Widget hoursInformation(Weather weather) {
                         "${"assets/${weather.weather[0]['icon']}.png".substring(0, 9)}n${"assets/${weather.weather[0]['icon']}.png".substring(9 + 1)}",
                         fit: BoxFit.cover,
                       )),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text("${weather.dt_txt.hour}.00",
                 style: GoogleFonts.poppins(
                     fontSize: 23.h,
