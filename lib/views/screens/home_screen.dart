@@ -25,43 +25,44 @@ List<String> monthNames = [
 ];
 
 Map<String, String> weatherDescriptionMap = {
-  "clear sky": "ochiq osmon",
-  "few clouds": "biroz bulutli",
-  "scattered clouds": "parchalanib bulutli",
-  "broken clouds": "singan bulutlar",
-  "shower rain": "kuchli yomg'ir",
-  "rain": "yomg'ir",
-  "thunderstorm": "momaqaldiroq",
-  "snow": "qor",
-  "mist": "tuman",
-  "smoke": "tutun",
-  "haze": "tutash",
-  "sand/ dust whirls": "qum/ chang girdobi",
-  "fog": "tuman",
-  "sand": "qum",
-  "dust": "chang",
-  "volcanic ash": "vulqon kulfi",
-  "squalls": "kuchli shamol",
-  "tornado": "tornado",
-  "light rain": "yengil yomg'ir",
-  "moderate rain": "mo''tadil yomg'ir",
-  "heavy intensity rain": "kuchli yomg'ir",
-  "very heavy rain": "juda kuchli yomg'ir",
-  "extreme rain": "o'ta kuchli yomg'ir",
-  "freezing rain": "muzlayotgan yomg'ir",
-  "light intensity shower rain": "yengil kuchli yomg'ir",
-  "heavy intensity shower rain": "kuchli kuchli yomg'ir",
-  "ragged shower rain": "notekis kuchli yomg'ir",
-  "light snow": "yengil qor",
-  "heavy snow": "kuchli qor",
-  "sleet": "muzli yomg'ir",
-  "light shower sleet": "yengil muzli yomg'ir",
-  "shower sleet": "kuchli muzli yomg'ir",
-  "light rain and snow": "yengil yomg'ir va qor",
-  "rain and snow": "yomg'ir va qor",
-  "light shower snow": "yengil kuchli qor",
-  "shower snow": "kuchli kuchli qor",
-  "heavy shower snow": "kuchli kuchli qor"
+  "clear sky": "Ochiq osmon",
+  "few clouds": "Biroz bulutli",
+  "scattered clouds": "Parchalangan bulutli",
+  "overcast clouds": "bulutli",
+  "broken clouds": "Parchalangan bulutlar",
+  "shower rain": "Kuchli yomg'ir",
+  "rain": "Yomg'ir",
+  "thunderstorm": "Momaqaldiroq",
+  "snow": "Qor",
+  "mist": "Tuman",
+  "smoke": "Tutun",
+  "haze": "Tutash",
+  "sand/ dust whirls": "Qum chang girdobi",
+  "fog": "Tuman",
+  "sand": "Qum",
+  "dust": "Chang",
+  "volcanic ash": "Vulqon kuli",
+  "squalls": "Kuchli shamol",
+  "tornado": "Tornado",
+  "light rain": "Yengil yomg'ir",
+  "moderate rain": "Mo'tadil yomg'ir",
+  "heavy intensity rain": "Kuchli yomg'ir",
+  "very heavy rain": "Juda kuchli yomg'ir",
+  "extreme rain": "O'ta kuchli yomg'ir",
+  "freezing rain": "Muzlayotgan yomg'ir",
+  "light intensity shower rain": "Yengil kuchli yomg'ir",
+  "heavy intensity shower rain": "Kuchli kuchli yomg'ir",
+  "ragged shower rain": "Notekis kuchli yomg'ir",
+  "light snow": "Yengil qor",
+  "heavy snow": "Kuchli qor",
+  "sleet": "Muzli yomg'ir",
+  "light shower sleet": "Yengil muzli yomg'ir",
+  "shower sleet": "Kuchli muzli yomg'ir",
+  "light rain and snow": "Yengil yomg'ir va qor",
+  "rain and snow": "Yomg'ir va qor",
+  "light shower snow": "Yengil kuchli qor",
+  "shower snow": "Kuchli kuchli qor",
+  "heavy shower snow": "Kuchli kuchli qor"
 };
 
 // ignore: must_be_immutable
@@ -79,6 +80,15 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: const Color(0xFF1D2547),
+        title: Text(
+          selectedCity,
+          style: GoogleFonts.poppins(
+              fontSize: 20.h, fontWeight: FontWeight.w600, color: Colors.white),
+        ),
+      ),
       body: Center(
           child: Container(
               width: double.infinity,
@@ -107,14 +117,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     return SingleChildScrollView(
                       child: Column(
                         children: [
-                          const SizedBox(height: 60),
-                          Text(
-                            selectedCity,
-                            style: GoogleFonts.poppins(
-                                fontSize: 20.h,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white),
-                          ),
                           const SizedBox(height: 20),
                           SizedBox(
                             width: 140.w,
