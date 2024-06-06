@@ -24,6 +24,46 @@ List<String> monthNames = [
   'Dekabr'
 ];
 
+Map<String, String> weatherDescriptionMap = {
+  "clear sky": "ochiq osmon",
+  "few clouds": "biroz bulutli",
+  "scattered clouds": "parchalanib bulutli",
+  "broken clouds": "singan bulutlar",
+  "shower rain": "kuchli yomg'ir",
+  "rain": "yomg'ir",
+  "thunderstorm": "momaqaldiroq",
+  "snow": "qor",
+  "mist": "tuman",
+  "smoke": "tutun",
+  "haze": "tutash",
+  "sand/ dust whirls": "qum/ chang girdobi",
+  "fog": "tuman",
+  "sand": "qum",
+  "dust": "chang",
+  "volcanic ash": "vulqon kulfi",
+  "squalls": "kuchli shamol",
+  "tornado": "tornado",
+  "light rain": "yengil yomg'ir",
+  "moderate rain": "mo''tadil yomg'ir",
+  "heavy intensity rain": "kuchli yomg'ir",
+  "very heavy rain": "juda kuchli yomg'ir",
+  "extreme rain": "o'ta kuchli yomg'ir",
+  "freezing rain": "muzlayotgan yomg'ir",
+  "light intensity shower rain": "yengil kuchli yomg'ir",
+  "heavy intensity shower rain": "kuchli kuchli yomg'ir",
+  "ragged shower rain": "notekis kuchli yomg'ir",
+  "light snow": "yengil qor",
+  "heavy snow": "kuchli qor",
+  "sleet": "muzli yomg'ir",
+  "light shower sleet": "yengil muzli yomg'ir",
+  "shower sleet": "kuchli muzli yomg'ir",
+  "light rain and snow": "yengil yomg'ir va qor",
+  "rain and snow": "yomg'ir va qor",
+  "light shower snow": "yengil kuchli qor",
+  "shower snow": "kuchli kuchli qor",
+  "heavy shower snow": "kuchli kuchli qor"
+};
+
 // ignore: must_be_immutable
 class HomeScreen extends StatefulWidget {
   dynamic latLung;
@@ -92,9 +132,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 fontWeight: FontWeight.w600,
                               )),
                           SizedBox(height: 15.h),
-                          Text("${weathers[0].weather[0]['main']}",
+                          Text(
+                              "${weatherDescriptionMap[weathers[0].weather[0]['description']]}",
                               style: GoogleFonts.poppins(
-                                  fontSize: 35.h,
+                                  fontSize: 30.h,
                                   color: Colors.white,
                                   fontWeight: FontWeight.w500)),
                           Row(
@@ -141,7 +182,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text("Today",
+                                      Text("Bugun",
                                           style: GoogleFonts.poppins(
                                               fontSize: 23.h,
                                               fontWeight: FontWeight.w600,
@@ -274,7 +315,6 @@ Widget hoursInformation(Weather weather) {
   return Row(
     children: [
       SizedBox(
-        height: 130.h,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -284,6 +324,7 @@ Widget hoursInformation(Weather weather) {
                     color: Colors.white,
                     height: -0,
                     fontWeight: FontWeight.w500)),
+            SizedBox(height: 10),
             SizedBox(
                 width: 50.w,
                 child: weather.dt_txt.hour > 5 && weather.dt_txt.hour < 21
@@ -295,6 +336,7 @@ Widget hoursInformation(Weather weather) {
                         "${"assets/${weather.weather[0]['icon']}.png".substring(0, 9)}n${"assets/${weather.weather[0]['icon']}.png".substring(9 + 1)}",
                         fit: BoxFit.cover,
                       )),
+            SizedBox(height: 10),
             Text("${weather.dt_txt.hour}.00",
                 style: GoogleFonts.poppins(
                     fontSize: 23.h,

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather/controllers/weather_controller.dart';
@@ -127,32 +128,40 @@ class _SearchScreenState extends State<SearchScreen> {
                                   for (var i = 0;
                                       i < locationHistory.length;
                                       i++)
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        InkWell(
-                                          onTap: () {},
-                                          child: Text(
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.pushReplacement(
+                                            // ignore: use_build_context_synchronously
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => HomeScreen(
+                                                  latLung: locationHistory[i]),
+                                            ));
+                                      },
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
                                             locationHistory[i],
                                             style: const TextStyle(
                                                 fontSize: 20,
                                                 fontWeight: FontWeight.w600,
                                                 color: Colors.white),
                                           ),
-                                        ),
-                                        IconButton(
-                                            onPressed: () {
-                                              locationHistory.removeAt(i);
-                                              saveLocationHistory(
-                                                  locationHistory);
-                                              setState(() {});
-                                            },
-                                            icon: const Icon(
-                                              Icons.clear,
-                                              color: Colors.grey,
-                                            ))
-                                      ],
+                                          IconButton(
+                                              onPressed: () {
+                                                locationHistory.removeAt(i);
+                                                saveLocationHistory(
+                                                    locationHistory);
+                                                setState(() {});
+                                              },
+                                              icon: const Icon(
+                                                Icons.clear,
+                                                color: Colors.grey,
+                                              ))
+                                        ],
+                                      ),
                                     )
                                 ],
                               )
@@ -176,7 +185,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       ));
                 },
                 icon: const Icon(
-                  Icons.arrow_back,
+                  CupertinoIcons.back,
                   color: Colors.white,
                   size: 80,
                 )),
@@ -190,24 +199,24 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   enterButton() async {
+    String locationBox = searchController.text.trim();
     setState(() {
       searchCheck = false;
     });
-    final box =
-        await weatherController.getInformation(searchController.text.trim());
+    final box = await weatherController.getInformation(locationBox);
     if (box is String) {
       searchError = box;
       setState(() {
         searchCheck = true;
       });
     } else {
-      locationHistory.insert(0, searchController.text.trim());
+      locationHistory.insert(0,
+          locationBox.substring(0, 1).toUpperCase() + locationBox.substring(1));
       Navigator.pushReplacement(
           // ignore: use_build_context_synchronously
           context,
           MaterialPageRoute(
-            builder: (context) =>
-                HomeScreen(latLung: searchController.text.trim()),
+            builder: (context) => HomeScreen(latLung: locationBox),
           ));
       saveLocationHistory(locationHistory);
     }

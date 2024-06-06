@@ -225,8 +225,7 @@ Widget daysInformation(Weather weather) {
             SizedBox(
                 width: 50.w,
                 child: Image.asset(
-                  "${"assets/${weather.weather[0]['icon']}.png".substring(0, 9)}d${"assets/${weather.weather[0]['icon']}.png"
-                          .substring(9 + 1)}",
+                  "${"assets/${weather.weather[0]['icon']}.png".substring(0, 9)}d${"assets/${weather.weather[0]['icon']}.png".substring(9 + 1)}",
                   fit: BoxFit.cover,
                 )),
             Text(getWeekDay(weather.dt_txt.weekday),
@@ -246,19 +245,19 @@ Widget daysInformation(Weather weather) {
 String getWeekDay(int weekDayNumber) {
   switch (weekDayNumber) {
     case DateTime.monday:
-      return "Mon";
+      return "Dush";
     case DateTime.tuesday:
-      return "Tue";
+      return "Sesh";
     case DateTime.wednesday:
-      return "Wed";
+      return "Chor";
     case DateTime.thursday:
-      return "Thu";
+      return "Pay";
     case DateTime.friday:
-      return "Fri";
+      return "Jum";
     case DateTime.saturday:
-      return "Sat";
+      return "Shan";
     case DateTime.sunday:
-      return "Sun";
+      return "Yak";
     default:
       return "Noma'lum kun";
   }
