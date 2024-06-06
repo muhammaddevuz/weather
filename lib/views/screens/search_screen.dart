@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather/controllers/weather_controller.dart';
 import 'package:weather/models/citys.dart';
-import 'package:weather/services/weather_http_service.dart';
 import 'package:weather/views/screens/home_screen.dart';
 
 // ignore: must_be_immutable
